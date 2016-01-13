@@ -122,10 +122,17 @@ def borrar(evt):
         except lite.Error, e:
             print "Error %s:" % e.args[0]
         
-        print sql, parametros
         sql = "delete from padron where nro_doc=? and tipo_doc=?"
         parametros = [nro_doc, tipo_doc]
         padron.cursor.execute(sql, parametros)
+
+def limpiar(evt):
+    "Limpia lo scampos para cargar un nuevo dato en el padron"
+    panel['nro_doc'].value = ""
+    panel['nombre'].value = ""
+    panel['domicilio'].value = ""
+    panel['cat_iva'].value = 1
+    panel['email'].value = ""
     
 def ExistePadron():
     try:
@@ -250,7 +257,7 @@ with gui.Window(name='abmpadron',
         nTopPanel = str(int(nTop)+30)
         nTop = str(int(nTop)+50)
         
-        gui.Button(label=u'Crear', name='create', sizer_border=4, top=nTop, left='10')
+        gui.Button(label=u'Crear', name='create', sizer_border=4, top=nTop, left='10', onclick=limpiar)
         gui.Button(label=u'Recuperar', name='retrieve', sizer_border=4, top=nTop, left='110')
         gui.Button(label=u'Actualizar', name='update', sizer_border=4, top=nTop, left='210', onclick=actualizar)
         gui.Button(label=u'Borrar', name='delete', sizer_border=4, top=nTop, left='310', onclick=borrar)
