@@ -5,7 +5,7 @@
 __author__ = "Jose Oscar Vogel (oscarvogel@gmail.com)"
 __copyright__ = "Copyright (C) 2015- Jose Oscar Vogel"
 __license__ = "GPL 3.0+"
-__version__ = "0.7c"
+__version__ = "0.1a"
 
 import gui          # import gui2py package (shortcuts)
 import os
