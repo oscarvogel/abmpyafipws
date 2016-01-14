@@ -86,7 +86,7 @@ def on_nro_doc_change(evt):
                 break
             else:
                 if doc_nro and padron.Consultar(doc_nro) and padron.domicilios:
-                    panel['cliente']['domicilio'].value = padron.domicilios[0]
+                    panel['domicilio'].value = padron.domicilios[0]
             panel['email'].value = padron.email or ""
     else:
         panel['nombre'].value = ""
