@@ -65,6 +65,11 @@ def on_nro_doc_change(evt):
         if padron.Buscar(doc_nro, tipo_doc):
             panel['nombre'].value = padron.denominacion
             panel['domicilio'].value = ""
+            panel['ganancias'].value = padron.imp_ganancias
+            panel['intsociedad'].value = False if padron.integrante_soc == 'N' else True
+            panel['empleador'].value = False if padron.empleador == 'N' else True
+            panel['monotributo'].value = padron.monotributo if padron.monotributo != 'NI' else None
+            panel['impiva'].value = padron.imp_iva
             try:
                 cat_iva = int(padron.cat_iva)
             except ValueError:
@@ -92,6 +97,11 @@ def on_nro_doc_change(evt):
         panel['nombre'].value = ""
         panel['domicilio'].value = ""
         panel['email'].value = ""
+        panel['ganancias'].value = 'NI'
+        panel['monotributo'].value = ""
+        panel['intsociedad'].value = False
+        panel['empleador'].value = False
+        panel['impiva'].value = 'NI'
     panel['cat_iva'].value = cat_iva
 
 def actualizar(evt):
@@ -102,8 +112,15 @@ def actualizar(evt):
     cat_iva = panel['cat_iva'].value
     direccion = panel['domicilio'].value
     email = panel['email'].value
+    imp_ganancias = panel['ganancias'].value
+    imp_iva = panel['impiva'].value
+    monotributo = panel['monotributo'].value if cat_iva == 6 else 'NI'
+    integrante_soc = 'S' if panel['intsociedad'].value else 'N'
+    empleador = 'S' if panel['empleador'].value else 'N'
 	
-    if padron.Guardar(tipo_doc, nro_doc, denominacion, cat_iva, direccion, email):
+    if padron.Guardar(tipo_doc, nro_doc, denominacion, cat_iva, 
+                     direccion, email, imp_ganancias, imp_iva,
+                     monotributo, integrante_soc, empleador):
         gui.alert(u"Se ha guardado la informacion correctamente")
     else:
         gui.alert(u"Se ha producido un errror y no se guardo la informacion")
