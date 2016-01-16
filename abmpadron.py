@@ -181,7 +181,12 @@ def ExisteDomicilio():
                         "FOREIGN KEY (tipo_doc, nro_doc) REFERENCES padron "
                       ");")
 
-		
+def buscarpadron(evt):
+    import buscar
+
+    dato = buscar.main()
+    print dato
+
 # --- gui2py designer generated code starts ---
 
 with gui.Window(name='abmpadron', 
@@ -278,7 +283,7 @@ with gui.Window(name='abmpadron',
         gui.Button(label=u'Recuperar', name='retrieve', sizer_border=4, top=nTop, left='110')
         gui.Button(label=u'Actualizar', name='update', sizer_border=4, top=nTop, left='210', onclick=actualizar)
         gui.Button(label=u'Borrar', name='delete', sizer_border=4, top=nTop, left='310', onclick=borrar)
-        gui.Button(label=u'Buscar', name='search', sizer_border=4, top=nTop, left='410')
+        gui.Button(label=u'Buscar', name='search', sizer_border=4, top=nTop, left='410', onclick=buscarpadron)
         gui.Button(label=u'Salir', name='close', sizer_border=4, onclick='exit()', top=nTop, left='510')
         
         nTop = str(int(nTop)+50)
