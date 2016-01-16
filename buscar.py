@@ -10,6 +10,7 @@ __version__ = "0.1a"
 
 import gui
 import datos
+from pyafipws.padron import PadronAFIP
 
 def on_tipo_doc_change(evt):
     ctrl = evt.target
@@ -25,6 +26,31 @@ def on_tipo_doc_change(evt):
     panel['criterios']['nro_doc'].mask = mask
     panel['criterios']['nro_doc'].value = value
     
+def on_busqueda(evt):
+    padron = PadronAFIP()
+    ctrl = evt.target
+    listado = panel['listado']
+    listado.items.clear()
+    criterios = panel['criterios']
+    tipo_doc = criterios['tipo_doc'].value
+    nro_doc = criterios['nro_doc'].value.replace('-', '').strip()
+    nombre = criterios['nombre_cliente'].value
+    
+    if ctrl.name.startswith('nro_doc'):
+        sql = "select * from padron where tipo_doc = ? and nro_doc like '%" + nro_doc + "%'"
+        params = [tipo_doc, ]
+        padron.cursor.execute(sql, params)
+    else:
+        sql = "select * from padron where lower(denominacion) like '%" + nombre + "%'"
+        padron.cursor.execute(sql)
+        
+    datos = padron.cursor.fetchall()
+    
+    items = []
+    for dato in datos:
+        items.append([str(dato['tipo_doc']), str(dato['nro_doc']), dato['denominacion']])
+    
+    listado.items = items
     
 # --- gui2py designer generated code starts ---
 with gui.Window(name='buscapadron', 
@@ -47,11 +73,11 @@ with gui.Window(name='buscapadron',
                          selection=3, )
             gui.TextBox(mask='##-########-#', name='nro_doc', left='164', 
                         top='24', width='110', text=u'', 
-                        value=u'', )
+                        value=u'', onchange=on_busqueda)
             gui.Label(name='label_268_164', height='31', left='295', top='28', 
                       width='61', text=u'Nombre:', )
             gui.TextBox(name='nombre_cliente', left='367', top='23', 
-                        width='240', value=u'', )        
+                        width='240', value=u'', onchange=on_busqueda)        
         
         nTop = str(int(nTop)+80)
         with gui.ListView(name='listado', height='353', left='7', top=nTop, 
