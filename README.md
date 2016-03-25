@@ -8,4 +8,4 @@ ABM de clientes y productos para el aplicativo Pyfactura https://github.com/osca
 Configuracion:
 -------------
 
-Clonar el presente proyecto, luego descargar o clonar https://github.com/reingart/pyafipws dentro del proyecto, una vez descargado ejecutar python abmpyafips.py para los clientes y python abmproductos.py para el abm de productos
+Clonar el presente proyecto, luego descargar o clonar https://github.com/reingart/pyafipws dentro del proyecto, una vez descargado ejecutar python abmpadron.py para los clientes y python abmproductos.py para el abm de productos
