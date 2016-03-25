@@ -8,6 +8,7 @@ __license__ = "GPL 3.0+"
 __version__ = "0.1a"
 
 import gui          # import gui2py package (shortcuts)
+import locale
 
 from pyafipws.padron import PadronAFIP
 from utiles import Utiles
@@ -17,6 +18,8 @@ CONFIG_FILE = "rece.ini"
 DB = None
 
 utiles = Utiles()
+
+locale.setlocale(locale.LC_ALL, '')
 
 def ExisteProductos():
     try:
@@ -93,8 +96,7 @@ with gui.Window(name='abmproductos',
 					onblur=on_idchange,
 					top=nTop, 
 					left='130',
-					mask='###############'
-					)
+					autoSelect=True)
             
             nTop = str(int(nTop)+30)
             gui.Label(name='lblDetalle', text=u'Detalle:', width='100', top=nTop,)
@@ -106,12 +108,12 @@ with gui.Window(name='abmproductos',
             
             nTop = str(int(nTop)+30)
             gui.Label(name='lblPrecio', text=u'Precio:', width='100', top=nTop,)
-            gui.TextBox(mask='#############.##', 
+            gui.TextBox(mask='#{12}.#{2}', 
                     alignment='right',
                     name='precio', 
 					width='110', 
 					value=u'',
-					top=nTop, left='130'
+					top=nTop, left='130',
 					)
             
             nTop = str(int(nTop)+30)
